@@ -1,7 +1,7 @@
-# CMake ×îµÍ°æ±¾ÒªÇó
+# CMake ï¿½ï¿½Í°æ±¾Òªï¿½ï¿½
 cmake_minimum_required (VERSION 3.13)
 
-# È«¾Öº¯Êý¶¨Òå
+# È«ï¿½Öºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 function (make_source_group arg DIR_GROUP)
 	
 	set(DIR_GROUP "")
@@ -36,3 +36,14 @@ function (make_source_group arg DIR_GROUP)
 endfunction()
 
 
+function(get_subdir_list curdir SUBDIRS)
+	message(${curdir})
+	FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+	SET(dirlist "")
+	FOREACH(child ${children})
+		IF(IS_DIRECTORY ${curdir}/${child})
+			LIST(APPEND dirlist ${child})
+		ENDIF()
+	ENDFOREACH()
+	SET(SUBDIRS ${dirlist} PARENT_SCOPE)
+endfunction()

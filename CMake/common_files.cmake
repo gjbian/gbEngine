@@ -6,7 +6,7 @@ include(cmake_lib)
 add_definitions(-std=c++11)
 
 # 公共头文件
-file(GLOB_RECURSE SOURCE_CODE_FILES ${PROJECT_SOURCE_DIR}/gbEngine/*.h ${PROJECT_SOURCE_DIR}/gbEngine/*.cpp)
+file(GLOB_RECURSE SOURCE_CODE_FILES ${PROJECT_SOURCE_DIR}/gbEngine/Source/*.h ${PROJECT_SOURCE_DIR}/gbEngine/Source/*.cpp ${PROJECT_SOURCE_DIR}/gbEngine/main.cpp)
 
 # 创建分组
 set(DIR_GROUP "")
@@ -39,6 +39,13 @@ set_target_properties(libGbEngine PROPERTIES LINKER_LANGUAGE CXX)
 foreach (FILE ${DIR_GROUP})
 	target_include_directories(libGbEngine PUBLIC ${PROJECT_SOURCE_DIR}/${FILE})
 endforeach()
+
+
+# 添加静态库
+target_include_directories(libGbEngine PUBLIC ${PROJECT_SOURCE_DIR}/gbEngine/Library)
+target_link_directories(libGbEngine PRIVATE  ${PROJECT_SOURCE_DIR}/gbEngine/Library)
+
+target_link_libraries(libGbEngine glfw3.lib)
 
 set_property(DIRECTORY ${PROJECT_SOURCE_DIR}/build PROPERTY VS_STARTUP_PROJECT libGbEngine)
 

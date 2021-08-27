@@ -1,12 +1,19 @@
 #include <iostream>
 
-#include "TVector.h"
-#include "FVector4.h"
+#include "renderer.h"
 
 int main()
 {
-  std::cout << "HelloWorld!!" << std::endl;
-  // TVector<int, 4>::UnitTest();
-  FVector4::UnitTest();
+  if (!Renderer::RendererInit())
+    return -1;
+
+  while (true)
+  {
+    if (!Renderer::RenderLoop())
+      break;
+  }
+
+  Renderer::RendererEnd();
+  
   return 0;
 }
